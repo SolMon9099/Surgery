@@ -48,7 +48,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title text-primary">Patient Creation</h2>
+                        <h2 class="card-title text-primary">Patient Referral Creation</h2>
                     </div>
 
                     <div class="card-body">
@@ -67,66 +67,84 @@
                         <div class="row">
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_name">Patient Name</label>
-                                <input type="text" id="patient_name" name="patient_name" class="form-control"/>
+                                <input type="text" value={{$patient->name}} readonly id="patient_name" name="patient_name" class="form-control"/>
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_email">Patient Email</label>
-                                <input type="email" id="patient_email" name="patient_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
+                                <input type="email" value={{$patient->email}} readonly id="patient_email" name="patient_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_phone">Patient phone</label>
-                                <input type="text" id="patient_phone" name="patient_phone" class="form-control phone-number-mask" placeholder="" />
+                                <input type="text" value={{$patient->phone}} readonly id="patient_phone" name="patient_phone" class="form-control phone-number-mask" placeholder="" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_date_birth">Date of Birth</label>
-                                <input type="text" id="patient_date_birth" name="patient_date_birth" class="form-control flatpickr_dates" />
+                                <input type="text" value={{$patient->date_of_birth}} readonly id="patient_date_birth" name="patient_date_birth" class="form-control" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_street_adderss">Patient Street Address</label>
-                                <input type="text" id="patient_street_adderss" name="patient_street_adderss" class="form-control" />
+                                <input type="text" value={{$patient->address}} readonly id="patient_street_adderss" name="patient_street_adderss" class="form-control" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_street_adderss_line2">Patient Street Address Line2</label>
-                                <input type="text" id="patient_street_adderss_line2" name="patient_street_adderss_line2" class="form-control" />
+                                <input readonly type="text" value="{{$patient->address_line2}}"  id="patient_street_adderss_line2" name="patient_street_adderss_line2" class="form-control" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_city">Patient City</label>
-                                <input type="text" id="patient_city" name="patient_city" class="form-control" />
+                                <input type="text" value={{$patient->city}} readonly id="patient_city" name="patient_city" class="form-control" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_city">Patient State/Province</label>
-                                <input type="text" id="patient_state" name="patient_state" class="form-control" />
+                                <input type="text" value={{$patient->state}} readonly id="patient_state" name="patient_state" class="form-control" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_city">Patient Postal/Zip Code</label>
-                                <input type="text" id="patient_postal" name="patient_postal" class="form-control" />
-                            </div>
-
-                            <div class="mb-1 col-md-3">
-                                <label class="form-label" for="patient_date_injury">Date of Injury</label>
-                                <input type="text" id="patient_date_injury" name="patient_date_injury" class="form-control flatpickr_dates" />
+                                <input type="text" value={{$patient->postal}} readonly id="patient_postal" name="patient_postal" class="form-control" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_gender">Gender</label>
                                 <div class="demo-inline-spacing">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="genders" id="inlineRadio1" value="male" checked />
+                                        @if($patient->gender == 'male')
+                                            <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio1" value="male" checked />
+                                        @else
+                                            <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio1" value="male" />
+                                        @endif
                                         <label class="form-check-label" for="inlineRadio1">Male</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="genders" id="inlineRadio2" value="female" />
+                                        @if($patient->gender == 'female')
+                                            <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio2" value="female" checked />
+                                        @else
+                                            <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio2" value="female" />
+                                        @endif
                                         <label class="form-check-label" for="inlineRadio2">Female</label>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="mb-1 col-md-3">
+                                <label class="form-label" for="patient_height">Height(cm)</label>
+                                <input readonly value="{{$patient->height}}" type="text" id="patient_height" name="patient_height" class="form-control" />
+                            </div>
+
+                            <div class="mb-1 col-md-3">
+                                <label class="form-label" for="patient_weight">Weight(kg)</label>
+                                <input readonly value="{{$patient->weight}}" type="text" id="patient_weight" name="patient_weight" class="form-control" />
+                            </div>
+
+                            <div class="mb-1 col-md-3">
+                                <label class="form-label" for="patient_date_injury">Date of Injury</label>
+                                <input type="text" id="patient_date_injury" name="patient_date_injury" class="form-control flatpickr_dates" />
                             </div>
 
                             <div class="mb-1 col-md-12">

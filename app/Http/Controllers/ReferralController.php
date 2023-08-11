@@ -37,20 +37,45 @@ class ReferralController extends Controller
     {
         $clinic_ids = ClinicManager::query()->where('manager_id', auth()->user()->id)->pluck('clinic_id');
         $manager_ids = ClinicManager::query()->whereIn('clinic_id', $clinic_ids)->pluck('manager_id');
-        $data = PatientTransaction::with(['patient', 'attorney', 'doctor'])
-            // ->where('office_id', auth()->user()->id)
+        $referral_ids = PatientTransaction::query()
             ->whereIn('office_id', $manager_ids)
             ->orderBy('created_at','desc')
-            ->get();
-        return view('referral.index', compact('data'));
+            ->pluck('id');
+        $temp = array();
+        foreach($referral_ids as $item){
+            $temp[] = $item;
+        }
+        $referral_ids = $temp;
 
+        $patients = User::whereHas(
+            'roles', function($q){
+                $q->where('name', 'patient');
+            }
+        )->get()->all();
+
+        $temp = array();
+        foreach($patients as $patient){
+            if ($patient->referral && !in_array($patient->referral->id, $referral_ids)){
+                continue;
+            }
+            $temp[] = $patient;
+        }
+        $patients = $temp;
+
+        return view('referral.index', compact('patients'));
+
+    }
+
+    public function create()
+    {
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create_referral(string $id)
     {
+        $patient = User::find($id);
         $clinicData = Clinic::get();
         $doctorData = array();
         if (auth()->user()->roles[0]->name == 'office manager'){
@@ -71,7 +96,7 @@ class ReferralController extends Controller
             }
         )->get()->all();
 
-        return view('referral.create', compact('clinicData', 'attorneys', 'doctorData'));
+        return view('referral.create', compact('clinicData', 'attorneys', 'doctorData', 'patient'));
     }
 
     /**
@@ -157,23 +182,6 @@ class ReferralController extends Controller
             $isPatientExist = User::where('email', $patient_email)->first();
             if ($isPatientExist && $isPatientExist->roles[0]->name == 'patient') {
                 $patient_id = User::where('email', $patient_email)->value('id');
-            }else{
-                $patientObj = new User();
-                $patientObj->name = $patient_name;
-                $patientObj->email = $patient_email;
-                $patientObj->password = Hash::make('password');
-                $patientObj->phone = $patient_phone;
-                $patientObj->date_of_birth = $patient_date_birth;
-                $patientObj->address = $patient_street_adderss;
-                $patientObj->address_line2 = $patient_street_adderss_line2;
-                $patientObj->city = $patient_city;
-                $patientObj->state = $patient_state;
-                $patientObj->postal = $patient_postal;
-                $patientObj->gender = $genders;
-                $patientObj->save();
-                $patient_id = $patientObj->id;
-                //assign the patient role for the user
-                $patientObj->assignRole(['patient']);
             }
 
             $isAttorneyExist = User::where('email', $attorney_email)->first();
@@ -267,32 +275,6 @@ class ReferralController extends Controller
             $isPatientExist = User::where('email', $patient_email)->first();
             if ($isPatientExist && $isPatientExist->roles[0]->name == 'patient') {
                 $patient_id = User::where('email', $patient_email)->value('id');
-            }else{
-                $patientObj = new User();
-                $patientObj->name = $patient_name;
-                $patientObj->email = $patient_email;
-                $patientObj->password = Hash::make('password');
-                $patientObj->phone = $patient_phone;
-                $patientObj->date_of_birth = $patient_date_birth;
-                $patientObj->address = $patient_street_adderss;
-                $patientObj->address_line2 = $patient_street_adderss_line2;
-                $patientObj->city = $patient_city;
-                $patientObj->state = $patient_state;
-                $patientObj->postal = $patient_postal;
-                $patientObj->gender = $genders;
-                $patientObj->save();
-                $patient_id = $patientObj->id;
-
-                //assign the patient role for the user
-                $patientObj->assignRole(['patient']);
-
-                //send email with patient data info  (password)
-                $welcomeMailData = [
-                    'user_name'   => $patient_name,
-                    'password' => 'password'
-                ];
-
-                Mail::to($patient_email)->send(new WelcomeEmail($welcomeMailData));
             }
 
 

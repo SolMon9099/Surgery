@@ -282,16 +282,27 @@ var dt_patientReferral = dtPatientReferralTable.DataTable({
   '<"col-sm-12 col-md-6"p>' +
   '>',
   buttons: [
-  {
-      text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Add New Patient',
-      className: 'create-new-patient btn btn-success',
-      attr: {
-        'href': createPatientReferralUrl
-      },
-      init: function (api, node, config) {
-        $(node).removeClass('btn-secondary');
-      }
-  }
+    {
+        text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Add New Patient',
+        className: 'btn btn-success',
+        attr: {
+            'data-bs-toggle': 'modal',
+            'data-bs-target': '#patient-modals'
+        },
+        init: function (api, node, config) {
+          $(node).removeClass('btn-secondary');
+        }
+    },
+    // {
+    //   text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Add New Referral',
+    //   className: 'create-new-patient btn btn-success',
+    //   attr: {
+    //     'href': createPatientReferralUrl
+    //   },
+    //   init: function (api, node, config) {
+    //     $(node).removeClass('btn-secondary');
+    //   }
+    // }
   ]
 });
 

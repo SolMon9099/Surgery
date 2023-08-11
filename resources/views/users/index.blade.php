@@ -34,9 +34,9 @@
                         </td>
                         <td>
                             <a class="btn btn-primary mr-1" href="{{ route('users.edit',$user->id) }}">Edit</a>
-                                {!! Form::open(['method' => 'DELETE', 'class' => 'delete_form', 'route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                {!! Form::close() !!}
+                            {!! Form::open(['method' => 'DELETE', 'class' => 'delete_form', 'route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach
@@ -125,6 +125,16 @@
                                 <label class="form-check-label" for="inlineRadio2">Female</label>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="height">Height(cm)</label>
+                        <input type="number" id="height" name="height" class="form-control" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="weight">Weight(kg)</label>
+                        <input type="number" id="weight" name="weight" class="form-control" />
                     </div>
 
                     <div class="col-12 col-md-12">

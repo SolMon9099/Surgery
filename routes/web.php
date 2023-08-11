@@ -35,7 +35,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('roles', RoleController::class);
 
-    Route::resource('users', UserController::class)->middleware('role:admin');
+    Route::resource('users', UserController::class)->middleware(['role:office manager|admin']);
+    Route::delete('/delete/{id}', [UserController::class, 'delete'])->middleware(['role:office manager|admin'])->name('users.delete');
 
     Route::group(['prefix' => 'profiles'], function () {
         Route::get('/', [ProfileController::class, 'index'])->name('profiles.index');
@@ -54,6 +55,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('referral', ReferralController::class)->middleware('role:office manager');
     Route::delete('/delete-referral-file/{id}', [ReferralController::class, 'deleteReferralFile'])->middleware('role:office manager');
+    Route::get('/create_referral/{id}', [ReferralController::class, 'create_referral'])->name('referral.create_referral');
 
     Route::group(['prefix' => 'calendar'], function () {
         Route::get('/', [CalendarController::class, 'index'])->name('calendar.index');

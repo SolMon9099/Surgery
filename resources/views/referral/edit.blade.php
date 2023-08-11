@@ -51,7 +51,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title text-primary">Patient Edit</h2>
+                        <h2 class="card-title text-primary">Patient Referral Edit</h2>
                     </div>
 
                     <div class="card-body">
@@ -85,82 +85,72 @@
                         <div class="row">
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_name">Patient Name</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_name----" name="patient_name" class="form-control"  value= "{{ $data->patient->name}}" />
-                                @else
-                                    <input disabled type="text" id="patient_name" name="patient_name" class="form-control"  value= "{{ $data->patient->name}}" />
-                                @endif
+                                <input disabled type="text" id="patient_name" name="patient_name" class="form-control"  value= "{{ $data->patient->name}}" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_email">Patient Email</label>
-                                @if($is_pending)
-                                    <input type="email" id="patient_email" name="patient_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" value={{$data->patient->email}} />
-                                @else
-                                    <input disabled type="email" id="patient_email" name="patient_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" value={{$data->patient->email}} />
-                                @endif
+                                <input disabled type="email" id="patient_email" name="patient_email" class="form-control" placeholder="john.doe@email.com" aria-label="john.doe" value={{$data->patient->email}} />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_phone">Patient phone</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_phone" name="patient_phone" class="form-control phone-number-mask" placeholder=""  value="{{$data->patient->phone}}" />
-                                @else
-                                    <input disabled type="text" id="patient_phone" name="patient_phone" class="form-control phone-number-mask" placeholder=""  value="{{$data->patient->phone}}" />
-                                @endif
+                                <input disabled type="text" id="patient_phone" name="patient_phone" class="form-control phone-number-mask" placeholder=""  value="{{$data->patient->phone}}" />
                             </div>
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_date_birth">Date of Birth</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_date_birth" name="patient_date_birth" class="form-control flatpickr_dates"  value="{{$data->patient->date_of_birth}}" />
-                                @else
-                                    <input disabled type="text" id="patient_date_birth" name="patient_date_birth" class="form-control flatpickr_dates"  value="{{$data->patient->date_of_birth}}" />
-                                @endif
+                                <input disabled type="text" id="patient_date_birth" name="patient_date_birth" class="form-control flatpickr_dates"  value="{{$data->patient->date_of_birth}}" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_street_adderss">Patient Street Address</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_street_adderss" name="patient_street_adderss" class="form-control" value="{{$data->patient->address}}"  />
-                                @else
-                                    <input disabled type="text" id="patient_street_adderss" name="patient_street_adderss" class="form-control" value="{{$data->patient->address}}"  />
-                                @endif
+                                <input disabled type="text" id="patient_street_adderss" name="patient_street_adderss" class="form-control" value="{{$data->patient->address}}" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_street_adderss_line2">Patient Street Address Line2</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_street_adderss_line2" name="patient_street_adderss_line2" class="form-control" value="{{$data->patient->address_line2}}" />
-                                @else
-                                    <input disabled type="text" id="patient_street_adderss_line2" name="patient_street_adderss_line2" class="form-control" value="{{$data->patient->address_line2}}" />
-                                @endif
+                                <input disabled type="text" id="patient_street_adderss_line2" name="patient_street_adderss_line2" class="form-control" value="{{$data->patient->address_line2}}" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_city">Patient City</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_city" name="patient_city" class="form-control" value="{{$data->patient->city}}" />
-                                @else
-                                    <input disabled type="text" id="patient_city" name="patient_city" class="form-control" value="{{$data->patient->city}}" />
-                                @endif
+                                <input disabled type="text" id="patient_city" name="patient_city" class="form-control" value="{{$data->patient->city}}" />
                             </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_city">Patient State/Province</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_state" name="patient_state" class="form-control" value="{{$data->patient->state}}" />
-                                @else
-                                    <input disabled type="text" id="patient_state" name="patient_state" class="form-control" value="{{$data->patient->state}}" />
-                                @endif
-                            </div>
+                                <input disabled type="text" id="patient_state" name="patient_state" class="form-control" value="{{$data->patient->state}}" />
+                                </div>
 
                             <div class="mb-1 col-md-3">
                                 <label class="form-label" for="patient_city">Patient Postal/Zip Code</label>
-                                @if($is_pending)
-                                    <input type="text" id="patient_postal" name="patient_postal" class="form-control" value="{{$data->patient->postal}}" />
-                                @else
-                                    <input disabled type="text" id="patient_postal" name="patient_postal" class="form-control" value="{{$data->patient->postal}}" />
-                                @endif
+                                <input disabled type="text" id="patient_postal" name="patient_postal" class="form-control" value="{{$data->patient->postal}}" />
+                            </div>
+
+                            <div class="mb-1 col-md-3">
+                                <label class="form-label" for="patient_gender">Gender</label>
+                                <div class="demo-inline-spacing">
+                                    <div class="form-check form-check-inline">
+                                        <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio1" value="male"
+                                        @if ($data->patient->gender == 'male') checked @endif />
+                                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio2" value="female"
+                                        @if ($data->patient->gender == 'female') checked @endif />
+                                        <label class="form-check-label" for="inlineRadio2">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-1 col-md-3">
+                                <label class="form-label" for="patient_height">Height(cm)</label>
+                                <input disabled value="{{$data->patient->height}}" type="text" id="patient_height" name="patient_height" class="form-control" />
+                            </div>
+
+                            <div class="mb-1 col-md-3">
+                                <label class="form-label" for="patient_weight">Weight(kg)</label>
+                                <input disabled value="{{$data->patient->weight}}" type="text" id="patient_weight" name="patient_weight" class="form-control" />
                             </div>
 
                             <div class="mb-1 col-md-3">
@@ -170,30 +160,6 @@
                                 @else
                                     <input disabled type="text" id="patient_date_injury" name="patient_date_injury" value="{{ $data->patient_date_injury }}" class="form-control flatpickr_dates" />
                                 @endif
-                            </div>
-
-                            <div class="mb-1 col-md-3">
-                                <label class="form-label" for="patient_gender">Gender</label>
-                                <div class="demo-inline-spacing">
-                                    <div class="form-check form-check-inline">
-                                        @if($is_pending)
-                                            <input class="form-check-input" type="radio" name="genders" id="inlineRadio1" value="male"
-                                        @else
-                                            <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio1" value="male"
-                                        @endif
-                                        @if ($data->patient->gender == 'male') checked @endif />
-                                        <label class="form-check-label" for="inlineRadio1">Male</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        @if($is_pending)
-                                            <input class="form-check-input" type="radio" name="genders" id="inlineRadio2" value="female"
-                                        @else
-                                            <input disabled class="form-check-input" type="radio" name="genders" id="inlineRadio2" value="female"
-                                        @endif
-                                        @if ($data->patient->gender == 'female') checked @endif />
-                                        <label class="form-check-label" for="inlineRadio2">Female</label>
-                                    </div>
-                                </div>
                             </div>
                             @php
                                 $reason_referral = explode(',', $data->reason_referral);

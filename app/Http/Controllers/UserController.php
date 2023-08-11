@@ -8,6 +8,7 @@ use App\Models\Clinic;
 use App\Models\ClinicDoctor;
 use App\Models\User;
 use App\Models\ClinicManager;
+use App\Models\PatientTransaction;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -82,6 +83,11 @@ class UserController extends Controller
             $clinic_manager->save();
         }
 
+        if ($request->input("from_request") == 'referral'){
+            return redirect()->route('referral.index')
+                ->with('flash_success','User created successfully');
+        }
+
         return redirect()->route('users.index')
             ->with('flash_success','User created successfully');
     }
@@ -103,15 +109,20 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id): View
+    public function edit($id, Request $request): View
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        if ($request && $request->input('from_request') == 'referral'){
+            $is_patient = true;
+            return view('users.edit',compact('user', 'is_patient'));
+        } else {
+            $roles = Role::pluck('name','name')->all();
+            $userRole = $user->roles->pluck('name','name')->all();
 
-        $clinics = Clinic::all();
+            $clinics = Clinic::all();
 
-        return view('users.edit',compact('user','roles','userRole', 'clinics'));
+            return view('users.edit',compact('user','roles','userRole', 'clinics'));
+        }
     }
 
     /**
@@ -160,8 +171,13 @@ class UserController extends Controller
             $clinic_doctor->save();
         }
 
-        return redirect()->route('users.index')
-            ->with('flash_success','User updated successfully');
+        if ($request->input('from_request') == 'referral'){
+            return redirect()->route('referral.index')
+                ->with('flash_success','User updated successfully');
+        } else {
+            return redirect()->route('users.index')
+                ->with('flash_success','User updated successfully');
+        }
     }
 
     /**
@@ -174,6 +190,11 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-                        ->with('flash_success','User deleted successfully');
+            ->with('flash_success','User deleted successfully');
+    }
+
+    public function delete($id){
+        User::find($id)->delete();
+        return response()->json(['message' => 'User deleted successfully.']);
     }
 }

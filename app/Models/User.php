@@ -29,8 +29,9 @@ class User extends Authenticatable
         'city',
         'state',
         'postal',
-        'gender'
-
+        'gender',
+        'height',
+        'weight'
     ];
 
     /**
@@ -52,9 +53,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function patient()
+    public function referral()
     {
-        return $this->belongsTo(PatientTransaction::class);
+        return $this->hasOne(PatientTransaction::class, 'patient_id', 'id');
     }
 
     public function clinics()

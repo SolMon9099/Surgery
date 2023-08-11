@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="col-12 col-md-6 mb-1">
-                            <label class="form-label" for="patient_insurance_postal">Patient Postal/Zip Code</label>
+                            <label class="form-label" for="postal">Patient Postal/Zip Code</label>
                             {!! Form::text('postal', null, array('placeholder' => 'Postal','class' => 'form-control')) !!}
                         </div>
 
@@ -96,6 +96,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <label class="form-label" for="height">Height(cm)</label>
+                            {!! Form::number('height', null, array('placeholder' => 'Height','class' => 'form-control')) !!}
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                            <label class="form-label" for="weight">Weight(kg)</label>
+                            {!! Form::number('weight', null, array('placeholder' => 'Weight','class' => 'form-control')) !!}
+                        </div>
+
+                        @if(!isset($is_patient))
                         <div class="col-12 col-md-12">
                             <label class="form-label" for="clinic_id">Clinic</label>
                             @if(isset($userRole['office manager']))
@@ -134,10 +144,19 @@
                             <label class="form-label" for="disabledInput">Roles</label>
                             {!! Form::select('roles[]', $roles, $userRole, array('id' => 'roles', 'class' => 'form-control','multiple')) !!}
                         </div>
+                        @else
+                        <input type="hidden" value="patient" name="roles[]"/>
+                        <input type="hidden" value="referral" name="from_request"/>
+                        @endif
 
                         <div class="col-12 mt-2">
                             <button type="submit" class="btn btn-primary me-1 waves-effect waves-float waves-light">Save</button>
-                            <a href="{{ route('users.index') }}" class="btn btn-outline-secondary waves-effect">Back</a>
+                            @if(isset($is_patient))
+                                <a href="{{ route('referral.index') }}" class="btn btn-outline-secondary waves-effect">Back</a>
+                            @else
+                                <a href="{{ route('users.index') }}" class="btn btn-outline-secondary waves-effect">Back</a>
+                            @endif
+
                         </div>
 
                     </div>
